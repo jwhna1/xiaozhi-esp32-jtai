@@ -730,6 +730,13 @@ config USE_AUDIO_DEBUGGER
 menu "WiFi Configuration Method"
     help
         WiFi Configuration Method Selection
+
+    config BT_ENABLED
+        default y if USE_BLE_WIFI_PROVISIONING
+
+    config BT_NIMBLE_ENABLED
+        default y if USE_BLE_WIFI_PROVISIONING
+
     config USE_HOTSPOT_WIFI_PROVISIONING
         bool "Hotspot"
         default y
@@ -739,6 +746,14 @@ menu "WiFi Configuration Method"
         bool "Acoustic"
         help
             Use audio signal to transmit WiFi configuration data
+
+    config USE_BLE_WIFI_PROVISIONING
+        bool "BLE Config"
+        depends on !USE_ESP_BLUFI_WIFI_PROVISIONING
+        select BT_ENABLED
+        help
+            Use custom BLE GATT service to transmit WiFi and OTA configuration data
+            Bluetooth and NimBLE are enabled by default when this option is selected.
 
     config USE_ESP_BLUFI_WIFI_PROVISIONING
         bool "Esp Blufi"

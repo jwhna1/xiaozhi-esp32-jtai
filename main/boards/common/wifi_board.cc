@@ -20,6 +20,9 @@
 #ifdef CONFIG_USE_ESP_BLUFI_WIFI_PROVISIONING
 #include "blufi.h"
 #endif
+#ifdef CONFIG_USE_BLE_WIFI_PROVISIONING
+#include "ble_provisioning.h"
+#endif
 
 static const char *TAG = "WifiBoard";
 
@@ -109,6 +112,11 @@ void WifiBoard::OnNetworkEvent(NetworkEvent event, const std::string& data) {
         case NetworkEvent::Connected:
             // Stop timeout timer
             esp_timer_stop(connect_timer_);
+#ifdef CONFIG_USE_BLE_WIFI_PROVISIONING
+            // Release BLE provisioning resources after station is connected
+            BleProvisioning::GetInstance().Stop();
+            BleProvisioning::GetInstance().Deinit();
+#endif
 #ifdef CONFIG_USE_ESP_BLUFI_WIFI_PROVISIONING
             // make sure blufi resources has been released
             Blufi::GetInstance().deinit();
@@ -175,6 +183,15 @@ void WifiBoard::StartWifiConfigMode() {
 
         Application::GetInstance().Alert(Lang::Strings::WIFI_CONFIG_MODE, hint.c_str(), "gear", Lang::Sounds::OGG_WIFICONFIG);
     });
+#endif
+#ifdef CONFIG_USE_BLE_WIFI_PROVISIONING
+    auto& ble_provisioning = BleProvisioning::GetInstance();
+    auto err = ble_provisioning.Init();
+    if (err == ESP_OK) {
+        ble_provisioning.Start();
+    } else {
+        ESP_LOGE(TAG, "Failed to initialize BLE provisioning: %s", esp_err_to_name(err));
+    }
 #elif CONFIG_USE_ESP_BLUFI_WIFI_PROVISIONING
     auto &blufi = Blufi::GetInstance();
     // initialize esp-blufi protocol
@@ -239,7 +256,7 @@ void WifiBoard::EnterWifiConfigMode() {
 }
 
 bool WifiBoard::IsInWifiConfigMode() const {
-    return WifiManager::GetInstance().IsConfigMode();
+    return in_config_mode_ || WifiManager::GetInstance().IsConfigMode();
 }
 
 NetworkInterface* WifiBoard::GetNetwork() {
