@@ -3,7 +3,7 @@
 （日本語 | [中文](README_zh.md) | [English](README.md)）
 
 > **これは `jtai` 独立メンテナンスブランチです**。[78/xiaozhi-esp32](https://github.com/78/xiaozhi-esp32) **v2.2.2** からフォークしました。  
-> **[jtxiaozhi-server](https://github.com/jwhna1/xiaozhi-esp32-jtai)** および **[シャオジー Flutter App](https://github.com/TOM88812/xiaozhi-android-client)**（Android / iOS）に深く最適化されています。  
+> **[jtxiaozhi-server](https://jtai.lhht.cc)** および **[シャオジー Flutter App](https://github.com/TOM88812/xiaozhi-android-client)**（Android / iOS）に深く最適化されています。  
 > **公式 [xiaozhi.me](https://xiaozhi.me) サーバー**および上流プロジェクトがサポートする **70種類以上のハードウェア**と完全互換です。
 
 ---
@@ -11,11 +11,10 @@
 ## ブランチの特徴
 
 上流 [78/xiaozhi-esp32](https://github.com/78/xiaozhi-esp32) との比較で、このブランチには以下の改善が含まれています：
-
 | 改善点 | 説明 |
 |---|---|
 | **BLEデバイス名の動態生成** | BLEプロビジョニングのブロードキャスト名をWi-Fi MACアドレスから動的に生成（`Xiaozhi-XXXXXX`）し、複数デバイスの同時設定時の名前衝突を解消 |
-| **jtxiaozhi-serverとの深い統合** | [jtxiaozhi-server](https://github.com/jwhna1/xiaozhi-esp32-jtai) 向けに最適化。高速な初回応答、MQTT長接続、セッション管理の強化 |
+| **jtxiaozhi-serverとの深い統合** | [jtxiaozhi-server](https://jtai.lhht.cc/) 向けに最適化。高速な初回応答、MQTT長接続、セッション管理の強化 |
 | **Flutter Appとの連携** | [xiaozhi-android-client](https://github.com/TOM88812/xiaozhi-android-client)（Android / iOS / Web / デスクトップ）とシームレスに連携 |
 | **公式サーバーとの互換性** | すべての改善は後方互換性を維持 — [xiaozhi.me](https://xiaozhi.me) にそのまま接続可能 |
 
