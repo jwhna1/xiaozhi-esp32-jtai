@@ -3,6 +3,7 @@
 #include "settings.h"
 
 #include <esp_log.h>
+#include <esp_mac.h>
 #include <esp_wifi.h>
 #include <freertos/FreeRTOS.h>
 #include <freertos/task.h>
@@ -24,12 +25,26 @@
 
 namespace {
 constexpr char kTag[] = "BleProvisioning";
-constexpr char kDeviceName[] = "Xiaozhi-Config";
 constexpr size_t kMaxSsidLength = 32;
 constexpr size_t kMaxPasswordLength = 64;
 constexpr size_t kMaxOtaUrlLength = 256;
 constexpr size_t kMaxSavedSsidsJsonLength = 384;
 constexpr size_t kMaxScanResultsJsonLength = 480;
+
+// Generate a unique BLE device name based on the last 3 bytes of the Wi-Fi STA MAC address.
+// Result format: "Xiaozhi-AABBCC" (14 chars), e.g. "Xiaozhi-A1B2C3".
+// The name is computed once and cached in a static string.
+const char* GetDeviceName() {
+    static std::string s_device_name;
+    if (s_device_name.empty()) {
+        uint8_t mac[6] = {};
+        esp_read_mac(mac, ESP_MAC_WIFI_STA);
+        char buf[16];
+        snprintf(buf, sizeof(buf), "Xiaozhi-%02X%02X%02X", mac[3], mac[4], mac[5]);
+        s_device_name = buf;
+    }
+    return s_device_name.c_str();
+}
 
 #if CONFIG_BT_NIMBLE_ENABLED
 constexpr size_t kApplyTaskStackSize = 4096;
@@ -192,7 +207,7 @@ esp_err_t BleProvisioning::Init() {
     ble_hs_cfg.reset_cb = OnReset;
     ble_hs_cfg.sync_cb = OnSync;
 
-    int rc = ble_svc_gap_device_name_set(kDeviceName);
+    int rc = ble_svc_gap_device_name_set(GetDeviceName());
     if (rc != 0) {
         ESP_LOGE(kTag, "Failed to set BLE name, rc=%d", rc);
         ret = ESP_FAIL;
@@ -309,8 +324,9 @@ esp_err_t BleProvisioning::Start() {
         fields.flags = BLE_HS_ADV_F_DISC_GEN | BLE_HS_ADV_F_BREDR_UNSUP;
         fields.tx_pwr_lvl_is_present = 1;
         fields.tx_pwr_lvl = BLE_HS_ADV_TX_PWR_LVL_AUTO;
-        fields.name = reinterpret_cast<const uint8_t*>(kDeviceName);
-        fields.name_len = strlen(kDeviceName);
+        const char* device_name = GetDeviceName();
+        fields.name = reinterpret_cast<const uint8_t*>(device_name);
+        fields.name_len = strlen(device_name);
         fields.name_is_complete = 1;
         fields.uuids16 = const_cast<ble_uuid16_t*>(&kProvisioningServiceUuid);
         fields.num_uuids16 = 1;
@@ -334,7 +350,7 @@ esp_err_t BleProvisioning::Start() {
 
         advertising_ = true;
         should_start_scan = !wifi_scan_running_;
-        ESP_LOGI(kTag, "BLE advertising started, name=%s", kDeviceName);
+        ESP_LOGI(kTag, "BLE advertising started, name=%s", device_name);
     }
 
     if (should_start_scan) {
