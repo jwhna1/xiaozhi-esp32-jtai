@@ -3,7 +3,7 @@
 (English | [中文](README_zh.md) | [日本語](README_ja.md))
 
 > **This is the `jtai` independently maintained branch**, forked from [78/xiaozhi-esp32](https://github.com/78/xiaozhi-esp32) **v2.2.2**.  
-> Deeply adapted for **[jtxiaozhi-server](https://github.com/jwhna1/xiaozhi-esp32-jtai)** and the **[xiaozhi Flutter App](https://github.com/TOM88812/xiaozhi-android-client)** (Android / iOS).  
+> Deeply adapted for **[jtxiaozhi-server](https://jtai.lhht.cc/)** and the **[xiaozhi Flutter App](https://github.com/TOM88812/xiaozhi-android-client)** (Android / iOS).  
 > Fully compatible with the **official [xiaozhi.me](https://xiaozhi.me) server** and **all 70+ hardware boards** supported by the upstream project.
 
 ---
