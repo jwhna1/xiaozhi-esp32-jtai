@@ -15,7 +15,7 @@ Compared to the upstream [78/xiaozhi-esp32](https://github.com/78/xiaozhi-esp32)
 | Enhancement | Description |
 |---|---|
 | **Dynamic BLE Device Name** | BLE provisioning broadcast name is now generated from the Wi-Fi MAC address (`Xiaozhi-XXXXXX`), eliminating name conflicts when multiple devices are configured simultaneously |
-| **Deep jtxiaozhi-server Integration** | Optimized for [jtxiaozhi-server](https://github.com/jwhna1/xiaozhi-esp32-jtai) with faster first-response, MQTT long-connection support, and enhanced session management |
+| **Deep jtxiaozhi-server Integration** | Optimized for [jtxiaozhi-server](https://jtai.lhht.cc/) with faster first-response, MQTT long-connection support, and enhanced session management |
 | **Flutter App Pairing** | Tuned to work seamlessly with [xiaozhi-android-client](https://github.com/TOM88812/xiaozhi-android-client) (Android / iOS / Web / Desktop) |
 | **Official Server Compatible** | All improvements are backward compatible — connect directly to [xiaozhi.me](https://xiaozhi.me) with no extra configuration |
 
