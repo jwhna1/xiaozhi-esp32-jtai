@@ -3,7 +3,7 @@
 （中文 | [English](README.md) | [日本語](README_ja.md)）
 
 > **这是 `jtai` 独立维护分支**，Fork 自 [78/xiaozhi-esp32](https://github.com/78/xiaozhi-esp32) **v2.2.2**。  
-> 深度适配 **[jtxiaozhi-server](https://jtai.lhht.cc)** 服务端及 **[小智 Flutter App](https://github.com/TOM88812/xiaozhi-android-client)**（Android / iOS）。  
+> 深度适配 **[jtxiaozhi-server](https://jtai.cc)** 服务端及 **[小智 Flutter App](https://github.com/TOM88812/xiaozhi-android-client)**（Android / iOS）。  
 > 完全兼容**虾哥官方 [xiaozhi.me](https://xiaozhi.me) 服务器**及上游项目支持的**全部 70+ 款硬件设备**。
 
 ---
