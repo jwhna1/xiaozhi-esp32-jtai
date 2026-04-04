@@ -3,7 +3,7 @@
 （日本語 | [中文](README_zh.md) | [English](README.md)）
 
 > **これは `jtai` 独立メンテナンスブランチです**。[78/xiaozhi-esp32](https://github.com/78/xiaozhi-esp32) **v2.2.2** からフォークしました。  
-> **[jtxiaozhi-server](https://jtai.lhht.cc)** および **[シャオジー Flutter App](https://github.com/TOM88812/xiaozhi-android-client)**（Android / iOS）に深く最適化されています。  
+> **[jtxiaozhi-server](https://jtai.cc)** および **[シャオジー Flutter App](https://github.com/TOM88812/xiaozhi-android-client)**（Android / iOS）に深く最適化されています。  
 > **公式 [xiaozhi.me](https://xiaozhi.me) サーバー**および上流プロジェクトがサポートする **70種類以上のハードウェア**と完全互換です。
 
 ---
